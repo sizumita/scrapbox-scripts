@@ -1,13 +1,11 @@
 import {$id, sleep} from "./utils";
 
 export const ScrapboxDOM = {
-    editor: $id("editor"),
-    lines: $id("lines")?.[0],
     textInput: $id("text-input"),
 }
 
-export async function insertText(text: string, wait?: number) {
-    const cursor = ScrapboxDOM.textInput as HTMLTextAreaElement
+export async function insertText(text: string, elem?: HTMLTextAreaElement | HTMLInputElement, wait?: number) {
+    const cursor = elem ?? ScrapboxDOM.textInput as HTMLTextAreaElement | HTMLInputElement
     cursor.focus()
     console.log(text)
     cursor.value = text

@@ -1,0 +1,13 @@
+.page-list-item[data-page-title^="🗃"]:not(.show-archived) {
+    display: none;
+}
+
+.page-list-item[data-page-title^="🗃"] {
+    opacity: 30%;
+}
+
+.switch-archive-button {
+    border: none;
+    border-radius: 15px;
+    padding: 0.2rem 2rem 0.2rem 2rem;
+}

@@ -2,6 +2,7 @@
 // 文字数カウンター
 
 import {$id, $query, sleep} from "./utils";
+import {observePage} from "./observer";
 
 
 async function showCharCount() {
@@ -17,21 +18,14 @@ async function showCharCount() {
         if (scrapbox.Layout === "page") {
             counterWrapper.style.visibility = "visible"
             let linesText = $query(".lines").innerText.trim()
-            const charCount = linesText.split(/s+/).join("").replaceAll("\n", "").length
+            const charCount = linesText.split(/s+/).join("").length
             counterWrapper.innerHTML = `<div>${charCount} char(s)</div>`
         } else {
             counterWrapper.style.visibility = "hidden"
         }
     }
 
-    const target = document.getElementsByClassName("page-wrapper")[0]
-    const observer = new MutationObserver((recs) => {
-        // @ts-ignore
-        if (!recs[0].target.classList.contains("enter")) {
-            updateCounter()
-        }
-    });
-    observer.observe(target, {attributes: true, attributeFilter: ["class"]})
+    observePage(updateCounter)
 
     while (true) {
         updateCounter()
