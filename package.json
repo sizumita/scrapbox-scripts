@@ -1,6 +1,14 @@
 {
   "version": "3",
   "devDependencies": {
-    "@types/react": "^18.0.14"
+    "@types/react": "^18.0.14",
+    "typescript": "^4.7.4"
+  },
+  "main": "build/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --outfile=build/index.js"
+  },
+  "dependencies": {
+    "esbuild": "^0.14.47"
   }
 }
