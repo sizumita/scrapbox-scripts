@@ -1,0 +1,6 @@
+{
+  "version": "3",
+  "devDependencies": {
+    "@types/react": "^18.0.14"
+  }
+}
