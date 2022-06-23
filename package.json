@@ -6,7 +6,7 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --outfile=build/index.js"
+    "build": "esbuild src/index.ts --bundle --minify --format=esm --outfile=build/index.js"
   },
   "dependencies": {
     "esbuild": "^0.14.47"

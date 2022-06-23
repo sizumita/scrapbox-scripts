@@ -25,8 +25,10 @@ function exportPage(projectName: string) {
     window.open(url)
 }
 
-scrapbox.PageMenu.addMenu({
-    title: "export",
-    image: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/rocket_1f680.png",
-    onClick: () => exportPage("sizumita")
-})
+export default function () {
+    scrapbox.PageMenu.addMenu({
+        title: "export",
+        image: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/rocket_1f680.png",
+        onClick: () => exportPage("sizumita")
+    })
+}

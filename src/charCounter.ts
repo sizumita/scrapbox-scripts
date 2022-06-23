@@ -33,4 +33,6 @@ async function showCharCount() {
     }
 }
 
-showCharCount().catch(console.log)
+export default function () {
+    showCharCount().catch(console.log)
+}

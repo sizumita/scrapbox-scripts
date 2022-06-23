@@ -1,6 +1,7 @@
+/// 一旦無しにする
 import {$id, $query} from "./utils";
 import {insertText} from "./dom";
-import {observePage} from "./observer";
+import {observeProjectChange} from "./observer";
 
 
 function scrollToElement(element: Element) {
@@ -49,13 +50,6 @@ async function archive() {
     await insertText("🗃 ️")
 }
 
-if (scrapbox.Project.name.startsWith("sizumita") && !scrapbox.Page.title?.startsWith("🗃")) {
-    scrapbox.PageMenu.addMenu({
-        title: "archive",
-        image: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/file-cabinet_1f5c4-fe0f.png",
-        onClick: archive
-    })
-}
 
 function showArchivedButton() {
     if (scrapbox.Layout !== "list") return
@@ -92,4 +86,14 @@ function showArchivedButton() {
     element.parentElement!.appendChild(archiveSwitch)
 }
 
-observePage(showArchivedButton)
+
+export default function () {
+    observeProjectChange(showArchivedButton)
+    if (scrapbox.Project.name.startsWith("sizumita") && !(scrapbox.Page.title?.startsWith("🗃") || scrapbox.Page.title?.startsWith("🚀"))) {
+        scrapbox.PageMenu.addMenu({
+            title: "archive",
+            image: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/325/file-cabinet_1f5c4-fe0f.png",
+            onClick: archive
+        })
+    }
+}
