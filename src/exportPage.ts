@@ -12,14 +12,16 @@ function formatLinks(body: string) {
 function exportPage(projectName: string) {
     if (document.domain !== "scrapbox.io") return
     if (!scrapbox || scrapbox.Layout !== "page") return
-    if (scrapbox.Project.name === "mitoujr" || scrapbox.Project.name === "sizumita") return
+    if (scrapbox.Project.name === "sizumita") projectName = "sizumita-public"
 
     const currentProjectName = scrapbox.Project.name
     const pageName = encodeURIComponent(scrapbox.Page.title)
 
     const body = encodeURIComponent(scrapbox.Page.lines.slice(1).map(l => formatLinks(l.text)).join('\n'))
     const newLine = "%0A"
-    const url = `https://scrapbox.io/${projectName}/🚀${pageName}?body=${body}${newLine}${newLine}from: [/${currentProjectName}/${pageName}]`
+    let url = `https://scrapbox.io/${projectName}/🚀${pageName}?body=${body}`
+    if (projectName === "sizumita-public")
+        url += `${newLine}${newLine}from: [/${currentProjectName}/${pageName}]`
     window.open(url)
 }
 
