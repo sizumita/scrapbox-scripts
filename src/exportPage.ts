@@ -20,7 +20,7 @@ function exportPage(projectName: string) {
     const body = encodeURIComponent(scrapbox.Page.lines.slice(1).map(l => formatLinks(l.text)).join('\n'))
     const newLine = "%0A"
     let url = `https://scrapbox.io/${projectName}/🚀${pageName}?body=${body}`
-    if (projectName === "sizumita-public")
+    if (projectName !== "sizumita-public")
         url += `${newLine}${newLine}from: [/${currentProjectName}/${pageName}]`
     window.open(url)
 }
