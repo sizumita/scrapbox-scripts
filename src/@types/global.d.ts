@@ -12,7 +12,8 @@ declare global {
 type Scrapbox = {
     PageMenu: {
         addMenu(init: AddMenuInit): void
-        (name: string): PageMenu
+        (name?: string): PageMenu
+        removeAllItems(): void
     }
     Project: {
         name: string
@@ -41,6 +42,8 @@ type Scrapbox = {
 interface PageMenu {
     addItem(item: Item)
     addSeparator(): void
+    reset(): void
+    emitChange(): void
 }
 
 

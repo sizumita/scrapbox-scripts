@@ -1,16 +1,13 @@
-import exportPage from "./exportPage"
 import charCounter from "./charCounter"
-import insertIcon from "./insertIcon"
+import {InitializePageMenu} from "./PageMenu";
 
 
 export function all() {
-    exportPage()
+    InitializePageMenu()
     charCounter()
-    insertIcon()
 }
 
 export {
-    exportPage,
     charCounter,
-    insertIcon,
+    InitializePageMenu,
 }

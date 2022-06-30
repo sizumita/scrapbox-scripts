@@ -16,8 +16,10 @@ export function observeProjectChange(func: (before: string | null, after: string
     const observer = new MutationObserver((recs) => {
         // @ts-ignore
         if (!recs[0].target.classList.contains("enter")) {
+            console.log(beforeProject)
             if (beforeProject !== scrapbox.Project.name)
                 func(beforeProject, scrapbox.Project.name)
+            beforeProject = scrapbox.Project.name
         }
     });
     observer.observe(target, {attributes: true, attributeFilter: ["class"]})
