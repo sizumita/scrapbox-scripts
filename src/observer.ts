@@ -1,3 +1,5 @@
+import {$id} from "./utils";
+
 const target = document.getElementsByClassName("page-wrapper")[0]
 
 export function observePage(func: () => void) {
@@ -23,4 +25,9 @@ export function observeProjectChange(func: (before: string | null, after: string
         }
     });
     observer.observe(target, {attributes: true, attributeFilter: ["class"]})
+}
+
+export function observeTextChange(func: () => void) {
+    $id('text-input')?.addEventListener('input', func)
+    $id('text-input')?.addEventListener('paste', func)
 }

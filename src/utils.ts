@@ -44,3 +44,12 @@ export function cursorToTitle(side: "left" | "right") {
     element.dispatchEvent(new MouseEvent("mousedown", mouseOptions))
     element.dispatchEvent(new MouseEvent("mouseup", mouseOptions))
 }
+
+export function pageExists(name: string, prj?: string) {
+    if(scrapbox && scrapbox.Project.name === (prj ?? scrapbox.Project.name)) {
+        return scrapbox.Project.pages
+            .find(page => page.title === name && page.exists) !== undefined;
+    }
+    return fetch(`/api/pages/${prj}/${name}/text`)
+        .then(res => res.ok)
+}

@@ -1,0 +1,50 @@
+.navbar {
+    background: rgb(251,87,73);
+}
+
+.project-home .title {
+    font-size: 0;
+}
+
+
+.project-home .title:before {
+    font-size: 18px;
+    content: "すみどらのScrapbox";
+    line-height: 40px;
+    font-weight: 600;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.project-home .title:after {
+    font-size: 18px;
+}
+
+:root {
+    --card-title-bg: rgb(251,87,73) !important;
+    --card-title-bg-pinned: rgb(251,87,73);
+    --telomere-unread: rgb(251,87,73) !important;
+}
+
+/*ネタバレ禁止*/
+.deco-\#{
+    background-color: var(--page-text-color, #4a4a4a);
+}
+.line.cursor-line .deco-\#, .deco-\#:hover {
+    background-color: inherit;
+}
+
+/*今日の日記以外の日記を非表示*/
+.page-list-item[data-page-title^="日記-"]:not(.today-diary) {
+    display: none;
+}
+
+
+/*日記のURLを日付だけ表示するようにする*/
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98"] > * {
+    display: none;
+}
+
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98"]:after {
+    content: attr(data-date);
+}
