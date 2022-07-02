@@ -15,7 +15,6 @@ function setTodayDiaryClass(today: string) {
 }
 
 function setYearToLink() {
-    console.log("event!")
     if (scrapbox.Layout !== "page") return
 
     Array.prototype.forEach.call(
@@ -23,10 +22,9 @@ function setYearToLink() {
         function (element: HTMLLinkElement) {
             if (!element.href) return;
             if (element.href.startsWith("https://scrapbox.io/sizumita/%E6%97%A5%E8%A8%98-")) {
-                const m = element.href.match(/https:\/\/scrapbox.io\/sizumita\/%E6%97%A5%E8%A8%98-(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/)
+                const m = element.href.match(/https:\/\/scrapbox.io\/sizumita\/%E6%97%A5%E8%A8%98-(?<year>[0-9]{4})-[0-9]{2}-[0-9]{2}/)
                 if (m === null) return
-                const {groups} = m
-                const year = groups!.year as string
+                const year = m.groups!.year as string
 
                 const now = new Date()
                 if (now.getFullYear().toString() !== year)
