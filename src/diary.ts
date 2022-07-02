@@ -1,7 +1,7 @@
 // noinspection InfiniteLoopJS
 
 import {pageExists, sleep} from "./utils";
-import {observeTextChange} from "./observer";
+import {observePage, observeTextChange} from "./observer";
 
 function setTodayDiaryClass(today: string) {
     Array.prototype.forEach.call(
@@ -27,13 +27,10 @@ function setYearToLink() {
                 if (m === null) return
                 const {groups} = m
                 const year = groups!.year as string
-                let month = groups!.month as string
-                if (month.startsWith("0")) month = month.slice(1)
-                let day = groups!.day as string
-                if (day.startsWith("0")) day = day.slice(1)
 
                 const now = new Date()
-                element.setAttribute("data-date", `${now.getFullYear().toString() !== year ? `${year}/` : ""}${month}/${day}`)
+                if (now.getFullYear().toString() !== year)
+                    element.setAttribute("data-is-not-this-year", year)
             }
         }
     )
@@ -56,7 +53,9 @@ export default async function () {
     const date = new Date()
     const toYYYYMMDD = (d: Date) => `日記-${d.toLocaleDateString("ja-JP").split("/").map(x => x.padStart(2, "0")).join("-")}`
     const today = toYYYYMMDD(date)
-    if (scrapbox.Layout === "list") setTodayDiaryClass(today)
+    observePage(() => {
+        setTodayDiaryClass(today)
+    })
     if (scrapbox.Page.title === today) return
     if (pageExists(today)) return
 

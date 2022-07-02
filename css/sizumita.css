@@ -41,10 +41,20 @@
 
 
 /*日記のURLを日付だけ表示するようにする*/
-.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98"] > * {
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98-"] > *:nth-child(-n+8) {
     display: none;
 }
 
-.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98"]:after {
-    content: attr(data-date);
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98-"] > *:nth-child(11) {
+    font-size: 0;
+}
+
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98-"] > *:nth-child(11):before {
+    font-size: 15px;
+    content: "/";
+}
+
+
+.line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98-"][data-is-not-this-year]:before {
+    content: attr(data-is-not-this-year) "/";
 }
