@@ -30,6 +30,11 @@ function setYearToLink() {
                 if (now.getFullYear().toString() !== year)
                     element.setAttribute("data-is-not-this-year", year)
             }
+            const m = element.href.match(/https:\/\/scrapbox.io\/sizumita\/((?<year>[0-9]{4})%2F)?(?<month>[0-9]{1,2})%2F(?<day>[0-9]{1,2})/)
+            if (m !== null) {
+                element.setAttribute("href", `https://scrapbox.io/sizumita/%E6%97%A5%E8%A8%98-${m.groups!.year ?? (new Date()).getFullYear()}-${m.groups!.month}-${m.groups!.day}`)
+                element.classList.remove("empty-page-link")
+            }
         }
     )
 }
