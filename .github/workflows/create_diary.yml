@@ -1,0 +1,25 @@
+on:
+  schedule:
+    - cron: '5 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  create_diary:
+    runs-on: ubuntu-latest
+    env:
+      TZ: "Asia/Tokyo"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        working-directory: automator
+        run: npm ci
+
+      - name: Build and Run
+        working-directory: automator
+        run: |
+          npm run build
+          node dist/index.js
+        env:
+          CONNECT_SID: ${{ secrets.CONNECT_SID }}
