@@ -34,6 +34,15 @@ function setYearToLink() {
             if (m !== null) {
                 element.setAttribute("href", `https://scrapbox.io/sizumita/%E6%97%A5%E8%A8%98-${m.groups!.year ?? (new Date()).getFullYear()}-${m.groups!.month}-${m.groups!.day}`)
                 element.classList.remove("empty-page-link")
+                element.classList.add("date-time")
+            }
+        }
+    )
+    Array.prototype.forEach.call(
+        document.getElementsByClassName("page-list-item"),
+        function (element: HTMLLIElement) {
+            if (element.getAttribute("data-page-title")!.match(/((?<year>[0-9]{4})\/)?(?<month>[0-9]{1,2})\/(?<day>[0-9]{1,2})/) !== null) {
+                element.style.display = "none"
             }
         }
     )
@@ -49,16 +58,12 @@ async function setYearToLinkLoop() {
     }
 }
 
-export default async function () {
-    setYearToLinkLoop().catch(console.log)
+async function AutoCreateDiary() {
     if (!scrapbox || scrapbox.Project.name !== "sizumita") return
 
     const date = new Date()
     const toYYYYMMDD = (d: Date) => `日記-${d.toLocaleDateString("ja-JP").split("/").map(x => x.padStart(2, "0")).join("-")}`
     const today = toYYYYMMDD(date)
-    observePage(() => {
-        setTodayDiaryClass(today)
-    })
     if (scrapbox.Page.title === today) return
     if (pageExists(today)) return
 
@@ -81,5 +86,22 @@ export default async function () {
             .replaceAll("{nextYear}", nextYear)
     )
 
-    window.open(`${location.origin}/sizumita/${encodeURIComponent(today)}?body=${body}`)
+    window.location.href = `${location.origin}/sizumita/${encodeURIComponent(today)}?body=${body}`
+}
+
+export {
+    AutoCreateDiary
+}
+
+export default async function () {
+    if (scrapbox.Project.name !== "sizumita") return
+    setYearToLinkLoop().catch(console.log)
+
+    const date = new Date()
+    const toYYYYMMDD = (d: Date) => `日記-${d.toLocaleDateString("ja-JP").split("/").map(x => x.padStart(2, "0")).join("-")}`
+    const today = toYYYYMMDD(date)
+    setTodayDiaryClass(today)
+    observePage(() => {
+        setTodayDiaryClass(today)
+    })
 }

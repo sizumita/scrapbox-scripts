@@ -58,3 +58,7 @@
 .line:not(.cursor-line) .page-link[href^="/sizumita/%E6%97%A5%E8%A8%98-"][data-is-not-this-year]:before {
     content: attr(data-is-not-this-year) "/";
 }
+
+.date-time {
+    color: forestgreen;
+}

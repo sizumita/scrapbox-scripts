@@ -1,11 +1,12 @@
 import charCounter from "./charCounter"
 import {InitializePageMenu} from "./PageMenu";
-import diary from "./diary";
+import diary, {AutoCreateDiary} from "./diary";
 
 
 export function all() {
     InitializePageMenu()
     charCounter()
+    AutoCreateDiary().catch(alert)
     diary().catch(alert)
 }
 
