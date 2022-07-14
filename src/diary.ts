@@ -58,41 +58,6 @@ async function setYearToLinkLoop() {
     }
 }
 
-async function AutoCreateDiary() {
-    if (!scrapbox || scrapbox.Project.name !== "sizumita") return
-
-    const date = new Date()
-    const toYYYYMMDD = (d: Date) => `日記-${d.toLocaleDateString("ja-JP").split("/").map(x => x.padStart(2, "0")).join("-")}`
-    const today = toYYYYMMDD(date)
-    if (scrapbox.Page.title === today) return
-    if (pageExists(today)) return
-
-    const yesterday = toYYYYMMDD(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1))
-    const tomorrow = toYYYYMMDD(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1))
-    const lastWeek = toYYYYMMDD(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 6))
-    const nextWeek = toYYYYMMDD(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 8))
-    const lastYear = toYYYYMMDD(new Date(date.getFullYear() + 1, date.getMonth(), date.getDate()))
-    const nextYear = toYYYYMMDD(new Date(date.getFullYear() + 1, date.getMonth(), date.getDate()))
-    const template = await (
-        await fetch(`${location.origin}/api/code/sizumita/日記/template.txt`)
-    ).text()
-    const body = encodeURIComponent(
-        template
-            .replaceAll("{previousDay}", yesterday)
-            .replaceAll("{nextDay}", tomorrow)
-            .replaceAll("{lastWeek}", lastWeek)
-            .replaceAll("{nextWeek}", nextWeek)
-            .replaceAll("{lastYear}", lastYear)
-            .replaceAll("{nextYear}", nextYear)
-    )
-
-    window.location.href = `${location.origin}/sizumita/${encodeURIComponent(today)}?body=${body}`
-}
-
-export {
-    AutoCreateDiary
-}
-
 export default async function () {
     if (scrapbox.Project.name !== "sizumita") return
     setYearToLinkLoop().catch(console.log)
