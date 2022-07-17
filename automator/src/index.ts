@@ -23,7 +23,9 @@ async function openPage(title: string, content: string) {
 }
 
 async function createDiary() {
-    const date = new Date()
+    const now = new Date()
+    // UTCで実行されるので1日増やす
+    const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
     const toYYYYMMDD = (d: Date) => `日記-${d.toLocaleDateString("ja-JP").split("/").map(x => x.padStart(2, "0")).join("-")}`
     const today = toYYYYMMDD(date)
 
